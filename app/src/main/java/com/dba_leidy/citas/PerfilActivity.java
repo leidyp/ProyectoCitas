@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,15 +81,19 @@ public class PerfilActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } /*else if (id == R.id.nav_share) {
+        if (id == R.id.person_black) {
+            Toast.makeText(getApplicationContext(), "Perfil de usuario!",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.group_add) {
+            Toast.makeText(getApplicationContext(), "Pacientes!",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.contacts_black) {
+            Toast.makeText(getApplicationContext(), "Medicos!",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.content_paste) {
+            Toast.makeText(getApplicationContext(), "Citas!",
+                    Toast.LENGTH_LONG).show();
+        }/*else if (id == R.id.content_paste) {
 
         } else if (id == R.id.nav_send) {
 
