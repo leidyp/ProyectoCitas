@@ -1,2 +1,0 @@
-# ProyectoCitas
-Android
