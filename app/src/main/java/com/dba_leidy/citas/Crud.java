@@ -45,7 +45,6 @@ public class Crud {
         String x ="select * from usuario";
         //String x ="select * from usuario where us_user='" + user + "' and us_password='" + password +"'";
         Cursor c = db1.rawQuery(x,null);
-        c.moveToFirst();
         Log.i("---> Bcount: ", ""+c.getCount());
         Log.i("Scount: ", ""+ x);
         if( c == null || c.getCount() == 0) {
@@ -98,16 +97,18 @@ public class Crud {
         };*/
         String x ="select * from usuario where us_user='" + user + "' and us_password='" + password +"'";
         Cursor c = db1.rawQuery(x,null);
-        c.moveToFirst();
         Log.i("---> ValidarL: ", ""+c.getCount());
         Log.i("LOGIN: ", ""+ x);
-        if( c != null || c.getCount() != 0) {
+        if(c.getCount() != 0) {
             c.moveToFirst();
             usua.setUs_id(c.getInt(0));
             usua.setUs_cedula(c.getInt(1));
             usua.setUs_nombre(c.getString(2));
             usua.setUs_user(c.getString(3));
             usua.setUs_password(c.getString(4));
+        } else{
+            usua.setUs_user("");
+            usua.setUs_password("");
         }
         c.close();
         return usua;
