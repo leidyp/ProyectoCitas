@@ -9,8 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dba_leidy.citas.clases_base.paciente;
 import com.dba_leidy.citas.clases_base.usuario;
-import com.dba_leidy.citas.esquemas.e_usuario;
+import com.dba_leidy.citas.esquemas.*;
 
 import java.util.ArrayList;
 
@@ -31,8 +32,6 @@ public class Crud {
 
         ConexionBD mDbHelper = new ConexionBD(this.context);
         SQLiteDatabase db1 = mDbHelper.getReadableDatabase();
-        /*String user="lacuna";
-        String password="12345";*/
         String[] projection = {
                 e_usuario.UsuarioData.US_ID,
                 e_usuario.UsuarioData.US_CEDULA,
@@ -40,25 +39,17 @@ public class Crud {
                 e_usuario.UsuarioData.US_USER,
                 e_usuario.UsuarioData.US_PASSWORD
         };
-       // String where = e_usuario.UsuarioData.US_USER + "= '?'";
-        //String[] whereArgs = {user};
         String x ="select * from usuario";
-        //String x ="select * from usuario where us_user='" + user + "' and us_password='" + password +"'";
         Cursor c = db1.rawQuery(x,null);
         Log.i("---> Bcount: ", ""+c.getCount());
         Log.i("Scount: ", ""+ x);
         if( c == null || c.getCount() == 0) {
-            //existe = false;
             InsertarUsuario();
-            //c.moveToFirst();
             Log.i("---> BcountC: ", "Usuario Creado");
         } else{
              Log.i("---> BcountE: ", "Ya existe el usuario");
          }
-
-
         c.close();
-        //return existe;
     }
 
     public void InsertarUsuario(){
@@ -67,8 +58,6 @@ public class Crud {
 
         usuario us = new usuario(1001,1094832264,"Leidy Acuna","lacuna","12345");
 
-        //boolean existe= LeerUsuario();
-        //if (!existe){
             ContentValues cv = new ContentValues();
             cv.put(e_usuario.UsuarioData.US_CEDULA, us.getUs_cedula());
             cv.put(e_usuario.UsuarioData.US_NOMBRE, us.getUs_nombre() );
@@ -76,10 +65,6 @@ public class Crud {
             cv.put(e_usuario.UsuarioData.US_PASSWORD, us.getUs_password() );
             long rowID = db.insert(e_usuario.UsuarioData.TABLE_NAME, null, cv);
 
-
-       // } else{
-            //Log.i("---> BcountE: ", "Ya existe el usuario");
-       // }
         db.close();
     }
 
@@ -88,13 +73,6 @@ public class Crud {
         usuario usua = new usuario();
         ConexionBD mDbHelper = new ConexionBD(this.context);
         SQLiteDatabase db1 = mDbHelper.getReadableDatabase();
-        /*String[] projection = {
-                e_usuario.UsuarioData.US_ID,
-                e_usuario.UsuarioData.US_CEDULA,
-                e_usuario.UsuarioData.US_NOMBRE,
-                e_usuario.UsuarioData.US_USER,
-                e_usuario.UsuarioData.US_PASSWORD
-        };*/
         String x ="select * from usuario where us_user='" + user + "' and us_password='" + password +"'";
         Cursor c = db1.rawQuery(x,null);
         Log.i("---> ValidarL: ", ""+c.getCount());
@@ -115,6 +93,58 @@ public class Crud {
         }
         c.close();
         return usua;
+    }
+
+    public String LeerPaciente(paciente pacc){
+
+        String alerta= "";
+        ConexionBD mDbHelper = new ConexionBD(this.context);
+        SQLiteDatabase db1 = mDbHelper.getReadableDatabase();
+        String[] projection = {
+                e_paciente.PacienteData.PAC_CEDULA,
+                e_paciente.PacienteData.PAC_NOMBRE,
+                e_paciente.PacienteData.PAC_APELLIDO,
+                e_paciente.PacienteData.PAC_TELEFONO,
+                e_paciente.PacienteData.PAC_FECHA_N
+        };
+        String x = "select" + e_paciente.PacienteData.PAC_CEDULA + "from paciente where " + e_paciente.PacienteData.PAC_CEDULA + "=" + pacc.getPac_cedula();
+        Cursor c = db1.rawQuery(x,null);
+        Log.i("---> Bcount: ", ""+c.getCount());
+        Log.i("Scount: ", ""+ x);
+        if(c.getCount() == 0) {
+            boolean alert =InsertarPaciente(pacc);
+            if (!alert){
+                alerta="Error, intente de nuevo";
+            }else{
+                alerta="Paciente registrado con exito.";
+            }
+        } else{
+            alerta="Paciente existente, ingrese otro.";
+            Log.i("--->paciente: ", "Ya existe el paciente");
+        }
+        c.close();
+        return alerta;
+    }
+
+    public boolean InsertarPaciente(paciente pacc){
+        boolean alert = true;
+        ConexionBD mDbHelper = new ConexionBD(this.context);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        try{
+            ContentValues cv = new ContentValues();
+            cv.put(e_paciente.PacienteData.PAC_CEDULA, pacc.getPac_cedula());
+            cv.put(e_paciente.PacienteData.PAC_NOMBRE, pacc.getPac_nombre());
+            cv.put(e_paciente.PacienteData.PAC_APELLIDO, pacc.getPac_apellido());
+            cv.put(e_paciente.PacienteData.PAC_TELEFONO, pacc.getPac_telefono());
+            cv.put(e_paciente.PacienteData.PAC_FECHA_N, pacc.getPac_fecha_n());
+            long rowID = db.insert(e_paciente.PacienteData.TABLE_NAME, null, cv);
+        }
+        catch (Exception e){
+            alert = false;
+        }
+
+        db.close();
+        return alert;
     }
 
 }

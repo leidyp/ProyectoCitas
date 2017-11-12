@@ -3,6 +3,7 @@ package com.dba_leidy.citas;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.dba_leidy.citas.esquemas.e_usuario;
 
@@ -20,6 +21,7 @@ public class ConexionBD extends SQLiteOpenHelper {
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(e_usuario.UsuarioData.SQL_CREATE_ENTRIES);
+        Log.i("------","registro todo");
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
