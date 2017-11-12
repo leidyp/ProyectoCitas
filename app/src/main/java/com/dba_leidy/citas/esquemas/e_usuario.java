@@ -25,15 +25,7 @@ public class e_usuario {
                         US_NOMBRE + " VARCHAR(50), " +
                         US_USER + " VARCHAR(50), " +
                         US_PASSWORD + " VARCHAR(50), " +
-                        " UNIQUE (" + US_ID + "));"+
-                "CREATE TABLE" + e_paciente.PacienteData.TABLE_NAME + "(" +
-                        e_paciente.PacienteData.PAC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        e_paciente.PacienteData.PAC_CEDULA + " INTEGER, " +
-                        e_paciente.PacienteData.PAC_NOMBRE + " VARCHAR(50), " +
-                        e_paciente.PacienteData.PAC_APELLIDO + " VARCHAR(50), " +
-                        e_paciente.PacienteData.PAC_TELEFONO + " INTEGER, " +
-                        e_paciente.PacienteData.PAC_FECHA_N + " DATE, " +
-                        " UNIQUE (" + e_paciente.PacienteData.PAC_ID + "));";
+                        " UNIQUE (" + US_ID + "))";
 
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.dba_leidy.citas.esquemas.e_usuario;
+import com.dba_leidy.citas.esquemas.*;
 
 /**
  * Created by DBA-Leidy on 10/11/2017.
@@ -20,7 +20,10 @@ public class ConexionBD extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {
+        Log.i("sql",""+ e_usuario.UsuarioData.SQL_CREATE_ENTRIES);
         db.execSQL(e_usuario.UsuarioData.SQL_CREATE_ENTRIES);
+        db.execSQL(e_paciente.PacienteData.SQL_CREATE_ENTRIES);
+
         Log.i("------","registro todo");
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

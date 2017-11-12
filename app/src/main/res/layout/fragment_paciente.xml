@@ -24,7 +24,8 @@
                     android:id="@+id/cedulap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/cedula_p" />
+                    android:hint="@string/cedula_p"
+                    android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -34,8 +35,7 @@
                     android:id="@+id/nombrep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/nombre_p"
-                    android:inputType="textPassword" />
+                    android:hint="@string/nombre_p" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -45,8 +45,7 @@
                     android:id="@+id/apellidop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/apellido_p"
-                    android:inputType="textPassword" />
+                    android:hint="@string/apellido_p" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -57,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/telefono_p"
-                    android:inputType="textPassword" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -75,7 +74,7 @@
                 android:id="@+id/insert_patient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/text_button_login"
+                android:hint="@string/buttonE"
                 android:theme="@style/RaisedButtonDark"
                 android:layout_marginTop="@dimen/fab_margin"
                 android:onClick="insertPatient"

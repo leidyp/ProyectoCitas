@@ -107,10 +107,10 @@ public class Crud {
                 e_paciente.PacienteData.PAC_TELEFONO,
                 e_paciente.PacienteData.PAC_FECHA_N
         };
-        String x = "select" + e_paciente.PacienteData.PAC_CEDULA + "from paciente where " + e_paciente.PacienteData.PAC_CEDULA + "=" + pacc.getPac_cedula();
+        String x = "select " + e_paciente.PacienteData.PAC_CEDULA + " from paciente where " + e_paciente.PacienteData.PAC_CEDULA + "='" + pacc.getPac_cedula()+"'";
+        Log.i("S: ", ""+ x);
         Cursor c = db1.rawQuery(x,null);
-        Log.i("---> Bcount: ", ""+c.getCount());
-        Log.i("Scount: ", ""+ x);
+        Log.i("---> B: ", ""+c.getCount());
         if(c.getCount() == 0) {
             boolean alert =InsertarPaciente(pacc);
             if (!alert){

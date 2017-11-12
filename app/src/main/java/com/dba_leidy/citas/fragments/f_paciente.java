@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter.CalendarDay;
+import com.dba_leidy.citas.Crud;
 import com.dba_leidy.citas.R;
 import com.dba_leidy.citas.clases_base.paciente;
 
@@ -34,6 +35,16 @@ public class f_paciente extends Fragment implements CalendarDatePickerDialogFrag
     private TextView dateView;
     private Button button;
     private int year, month, day;
+    EditText cedula;
+    EditText nombre;
+    EditText apellido;
+    EditText telefono;
+    String fecha;
+    String ced;
+    String nom;
+    String apell;
+    String tel;
+    Crud c;
 
     @Nullable
     @Override
@@ -50,7 +61,7 @@ public class f_paciente extends Fragment implements CalendarDatePickerDialogFrag
 
         dateView = (TextView)getView().findViewById(R.id.fechan);
         button = (Button)getView().findViewById(R.id.insert_patient);
-
+        c = new Crud(getContext());
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Registro Paciente");
 
@@ -88,15 +99,15 @@ public class f_paciente extends Fragment implements CalendarDatePickerDialogFrag
         dateView.setText(year+"-"+ mes +"-"+dia);
     }
     public void insertPatient() {
-        EditText cedula = (EditText) getView().findViewById(R.id.cedulap);
-        int ced = Integer.parseInt(cedula.getText().toString().trim());
-        EditText nombre = (EditText) getView().findViewById(R.id.nombrep);
-        String nom = nombre.getText().toString().trim();
-        EditText apellido = (EditText) getView().findViewById(R.id.apellidop);
-        String apell = apellido.getText().toString().trim();
-        EditText telefono = (EditText) getView().findViewById(R.id.telefonop);
-        int tel = Integer.parseInt(telefono.getText().toString().trim());
-        String fecha = dateView.getText().toString().trim();
+        cedula = (EditText) getView().findViewById(R.id.cedulap);
+        ced = cedula.getText().toString().trim();
+        nombre = (EditText) getView().findViewById(R.id.nombrep);
+        nom = nombre.getText().toString().trim();
+        apellido = (EditText) getView().findViewById(R.id.apellidop);
+        apell = apellido.getText().toString().trim();
+        telefono = (EditText) getView().findViewById(R.id.telefonop);
+        tel = telefono.getText().toString().trim();
+        fecha = dateView.getText().toString().trim();
         if(ced.equals("") || nom.equals("") || apell.equals("") || tel.equals("") || fecha.equals("Fecha de Nacimiento") ){
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle);
             builder.setTitle("Alerta");
@@ -110,7 +121,16 @@ public class f_paciente extends Fragment implements CalendarDatePickerDialogFrag
             builder.setMessage("¿Esta seguro de registrar este paciente?");
             builder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogo1, int id) {
-                    paciente p = new paciente();
+
+                    paciente p = new paciente(ced,nom,apell,tel,fecha);
+                    String alert = c.LeerPaciente(p);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AppCompatAlertDialogStyle);
+                    builder.setTitle("Alerta");
+                    builder.setMessage(alert);
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+
+
                 }
             });
             builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -119,7 +139,7 @@ public class f_paciente extends Fragment implements CalendarDatePickerDialogFrag
                 }
             });
             builder.show();
-            paciente pac = new paciente();
+
         }
     }
 
