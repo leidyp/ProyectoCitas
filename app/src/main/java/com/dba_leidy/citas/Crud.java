@@ -107,6 +107,9 @@ public class Crud {
             usua.setUs_user(c.getString(3));
             usua.setUs_password(c.getString(4));
         } else{
+            usua.setUs_id(0);
+            usua.setUs_cedula(0);
+            usua.setUs_nombre("");
             usua.setUs_user("");
             usua.setUs_password("");
         }

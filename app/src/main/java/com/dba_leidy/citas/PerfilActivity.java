@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dba_leidy.citas.fragments.f_cita;
@@ -24,13 +26,16 @@ import com.dba_leidy.citas.fragments.f_perfil;
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView cedula;
+    TextView nombre;
+    private Bundle sesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -42,7 +47,14 @@ public class PerfilActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+        // Obtengo el Bundle del Intent
+        Log.i("cedula p",""+getIntent().getExtras().getInt("cedula"));
+        this.sesion = getIntent().getExtras();
         displaySelectedScreen(R.id.person_black);
+
+
     }
 
     @Override
@@ -80,8 +92,6 @@ public class PerfilActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
-
         displaySelectedScreen(item.getItemId());
 
 
@@ -113,7 +123,7 @@ public class PerfilActivity extends AppCompatActivity
     }
 
     private void displaySelectedScreen(int itemId) {
-
+        Bundle bundle = this.sesion;
         //creating fragment object
         Fragment fragment = null;
 
@@ -121,6 +131,7 @@ public class PerfilActivity extends AppCompatActivity
         switch (itemId) {
             case R.id.person_black:
                 fragment = new f_perfil();
+                fragment.setArguments(bundle);
                 break;
             case R.id.group_add:
                 fragment = new f_paciente();

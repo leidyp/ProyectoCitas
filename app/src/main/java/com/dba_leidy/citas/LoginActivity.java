@@ -40,10 +40,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("---> Bcountlo: ", ""+usuario.getUs_user());
             if (usua.equals(usuario.getUs_user()) && contrasena.equals(usuario.getUs_password())) {
                 Intent intent = new Intent(getApplicationContext(), PerfilActivity.class);
+                intent.putExtra("cedula",usuario.getUs_cedula());
+                intent.putExtra("nombre",usuario.getUs_nombre());
+                intent.putExtra("user",usuario.getUs_user());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-//                    Intent intent = new Intent(this, OperationActivity.class);
-//                    startActivity(intent);
+
             } else {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
